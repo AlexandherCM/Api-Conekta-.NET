@@ -1,0 +1,74 @@
+﻿@"{
+    ""line_items"": [{
+        ""name"": ""Tacos"",
+        ""unit_price"": 1000,
+        ""quantity"": 12
+    }],
+    ""shipping_lines"": [{
+        ""amount"": 1500,
+        ""carrier"": ""FEDEX""
+    }]," + //shipping_lines - physical goods only
+                  @"""currency"": ""MXN"",
+    ""customer_info"": {
+      ""name"": ""Fulanito Pérez"",
+      ""email"": ""fulanito@conekta.com"",
+      ""phone"": ""+5218181818181""
+    },
+    ""shipping_contact"":{
+       ""address"": {
+         ""street1"": ""Calle 123, int 2"",
+         ""postal_code"": ""06100"",
+         ""country"": ""MX""
+       }
+    }," + //shipping_contact - required only for physical goods only
+                  @"""charges"":[{
+      ""payment_method"": {
+        ""type"": ""oxxo_cash"",
+        ""expires_at"": " + thirtyDaysFromNow + @"
+      }
+    }]
+  }");
+
+
+
+
+  //customersApi.DeleteCustomerById("cus_2vY8Fv7KUf7yeMWVM");
+            var customersApi = new CustomersApi(_config);
+
+            var ordersApi = new OrdersApi(_config);
+            var plansApi = new PlansApi(_config);
+
+
+  
+            PlanResponse planResponse = plansApi.CreatePlan(planRequest, _acceptLanguage);
+
+            //var customer = new Customer(
+            //    name: "Alexandher Cordoba",
+            //    email: "alexandhercordoba378@gmail.com",
+            //    phone: "+525591889796"
+            //);
+
+            //CustomerResponse customerResponse = customersApi.CreateCustomer(customer);
+
+
+
+            //var interval = IntervalEnum.Month;
+            //var planRequest = new PlanRequest
+            //{
+            //    Name = "Hola mundo",
+            //    Amount = 100 *100, // Monto en centavos
+            //    Currency = "MXN", // Moneda
+            //    Interval = interval, // Intervalo de facturación
+            //    Frequency = 1, // Frecuencia de facturación
+            //    TrialPeriodDays = 2,
+            //    ExpiryCount = 1
+            //};
+
+            //PlanResponse planResponse = plansApi.CreatePlan(planRequest, _acceptLanguage);
+
+            //var subscriptionRequest = new SubscriptionRequest(
+            //    planId: planResponse.Id
+            //);
+
+            //var subscriptionsApi = new SubscriptionsApi(_config);
+            //SubscriptionResponse subscriptionResponse = subscriptionsApi.CreateSubscription(customerResponse.Id, subscriptionRequest, _acceptLanguage);
