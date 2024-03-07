@@ -22,7 +22,7 @@ namespace Api_OxxoPay.Views
             string acceptLanguage = "en";
             Configuration configuration = new Configuration
             {
-                AccessToken = "key_pq42sBrvzq9u0WnQ6aZvtrg"
+                AccessToken = "aqui_tu_Key"
             };
 
             var customerApi = new CustomersApi(configuration);
