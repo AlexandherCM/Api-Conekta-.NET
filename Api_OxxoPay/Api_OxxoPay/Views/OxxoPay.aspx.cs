@@ -1,14 +1,14 @@
-﻿using Api_OxxoPay.Classes;
-using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System;
+using System.Collections.Generic;
+using Conekta.net.Client;
+using Conekta.net.Api;
+using Conekta.net.Model;
+using System.Linq;
 
 namespace Api_OxxoPay.Views
 {
     public partial class OxxoPay : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -16,64 +16,74 @@ namespace Api_OxxoPay.Views
 
         protected async void BtnSend_Click(object sender, EventArgs e)
         {
-            Root root = new Root()
+            DateTime expiresAtDateTime = DateTime.Now.AddDays(30); // Ejemplo: 30 días a partir de hoy
+            long expiresAtUnix = ((DateTimeOffset)expiresAtDateTime).ToUnixTimeSeconds();
+
+            string acceptLanguage = "en";
+            Configuration configuration = new Configuration
             {
-                amount = "200",
-                currency = "MXN",
-                name = "Alexandher Cordoba",
-                email = "alexandhercordoba378@gmail.com",
-                phone = "5591889796",
-                merchantReferenceCode = "dfscxvsdf",
-                oxxoPay = new Pay()
-                {
-                    expirationNumber = 1,
-                    expirationType = "DAY"
-                }
+                AccessToken = "key_pq42sBrvzq9u0WnQ6aZvtrg"
             };
 
-            string json = JsonConvert.SerializeObject(root);
+            var customerApi = new CustomersApi(configuration);
+            var ordersApi = new OrdersApi(configuration);
 
+            // create customer
+            var customer = new Customer(
+                name: "Valeria Itzel",
+                phone: "+525562948211",
+                email: "valeitzelcordoba@gmail.com"
+            );
 
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
+            CustomerResponse customerResponse = await customerApi.CreateCustomerAsync(customer);
+
+            // Preparar los lineItems
+            var lineItems = new List<Product>
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://gateway-154.netpaydev.com/gateway-ecommerce/v3/oxxopay/reference"),
-                Headers =
-                {
-                    { "accept", "application/json" },
-                },
-                Content = new StringContent("{\"amount\":\"20\",\"currency\":\"MXN\",\"name\":\"Jon\",\"email\":\"review@netpay.com.mx\",\"phone\":\"8100000222\",\"merchantReferenceCode\":\"referencia-unica-1133\",\"oxxoPay\":{\"expirationNumber\":10,\"expirationType\":\"DAY\"}}")
-                {
-                    Headers =
-        {
-            ContentType = new MediaTypeHeaderValue("application/json")
-        }
-                }
+                new Product(
+                    name: "Guías",
+                    unitPrice: 500000, // El precio debe estar en centavos
+                    quantity: 1
+                )
             };
-            using (var response = await client.SendAsync(request))
+
+            // Calcular el total de los lineItems
+            int totalOrderAmount = lineItems.Sum(item => item.UnitPrice * item.Quantity);
+
+            var charges = new List<ChargeRequest>
             {
-                //response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                Response.Write(body);
+                new ChargeRequest(
+                    amount: totalOrderAmount, // Asegurar que el monto coincide con el total de los lineItems
+                    paymentMethod: new ChargeRequestPaymentMethod(
+                        expiresAt: expiresAtUnix,
+                        type: "oxxo_cash" // Especificar el tipo de método de pago como Oxxo Cash
+                    )
+                )
+            };
+
+            var customerInfo = new OrderRequestCustomerInfo(
+                new CustomerInfoJustCustomerId(customerResponse.Id)
+            );
+
+            var orderRequest = new OrderRequest(
+                currency: "MXN",
+                customerInfo: customerInfo,
+                lineItems: lineItems,
+                charges: charges
+            );
+
+            // Intentar crear la orden
+            try
+            {
+                OrderResponse response = await ordersApi.CreateOrderAsync(orderRequest, acceptLanguage);
+                // Procesar la respuesta, por ejemplo, mostrar el ID de la orden y otros detalles relevantes.
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepción, por ejemplo, registrando o mostrando el mensaje de error.
+                Console.WriteLine(ex.Message);
             }
         }
 
-        public class Pay
-        {
-            public int expirationNumber { get; set; }
-            public string expirationType { get; set; }
-        }
-
-        public class Root
-        {
-            public string amount { get; set; }
-            public string currency { get; set; }
-            public string name { get; set; }
-            public string email { get; set; }
-            public string phone { get; set; }
-            public string merchantReferenceCode { get; set; }
-            public Pay oxxoPay { get; set; }
-        }
     }
 }

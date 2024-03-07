@@ -382,3 +382,5 @@ A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_Ox
 A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_OxxoPay\Api_OxxoPay\obj\Debug\Api_OxxoPay.csproj.CopyComplete
 A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_OxxoPay\Api_OxxoPay\obj\Debug\Api_OxxoPay.dll
 A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_OxxoPay\Api_OxxoPay\obj\Debug\Api_OxxoPay.pdb
+A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_OxxoPay\Api_OxxoPay\bin\Conekta.net.dll
+A:\Documentos 2Do Disco\Codigos y lenguajes\Repos\Api-OXXO-Pay-Recurrente\Api_OxxoPay\Api_OxxoPay\bin\Conekta.net.xml
