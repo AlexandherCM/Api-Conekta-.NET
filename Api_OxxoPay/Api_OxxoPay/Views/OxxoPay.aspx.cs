@@ -4,6 +4,7 @@ using Conekta.net.Client;
 using Conekta.net.Api;
 using Conekta.net.Model;
 using System.Linq;
+using Api_OxxoPay.Controllers;
 
 namespace Api_OxxoPay.Views
 {
@@ -11,7 +12,13 @@ namespace Api_OxxoPay.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (myStaticData.Orders.Count != 0)
+            {
+                foreach (var id in myStaticData.Orders)
+                {
+                    Response.Write(id);
+                }
+            }
         }
 
         protected async void BtnSend_Click(object sender, EventArgs e)
@@ -22,17 +29,17 @@ namespace Api_OxxoPay.Views
             string acceptLanguage = "en";
             Configuration configuration = new Configuration
             {
-                AccessToken = "aqui_tu_Key"
+                AccessToken = "key_pq42sBrvzq9u0WnQ6aZvtrg"
             };
 
             var customerApi = new CustomersApi(configuration);
             var ordersApi = new OrdersApi(configuration);
 
-            // create customer
+            //create customer
             var customer = new Customer(
-                name: "Valeria Itzel",
-                phone: "+525562948211",
-                email: "valeitzelcordoba@gmail.com"
+                name: "Alexandher Cordoba",
+                phone: "+525591889796",
+                email: "alexandhercordoba378@gmail.com"
             );
 
             CustomerResponse customerResponse = await customerApi.CreateCustomerAsync(customer);
@@ -42,7 +49,7 @@ namespace Api_OxxoPay.Views
             {
                 new Product(
                     name: "Guías",
-                    unitPrice: 500000, // El precio debe estar en centavos
+                    unitPrice: 5200*100, // El precio debe estar en centavos
                     quantity: 1
                 )
             };
@@ -75,8 +82,9 @@ namespace Api_OxxoPay.Views
             // Intentar crear la orden
             try
             {
-                OrderResponse response = await ordersApi.CreateOrderAsync(orderRequest, acceptLanguage);
                 // Procesar la respuesta, por ejemplo, mostrar el ID de la orden y otros detalles relevantes.
+                OrderResponse response = await ordersApi.CreateOrderAsync(orderRequest, acceptLanguage);
+                customerApi.DeleteCustomerById(customerResponse.Id);
             }
             catch (Exception ex)
             {
