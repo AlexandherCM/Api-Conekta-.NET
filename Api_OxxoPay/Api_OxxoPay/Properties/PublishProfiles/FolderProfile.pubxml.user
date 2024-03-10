@@ -4,16 +4,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <History>True|2024-03-10T01:37:57.3558078Z;True|2024-03-08T10:20:00.2191248-06:00;True|2024-03-08T10:19:46.5429970-06:00;True|2024-03-08T10:01:18.8781608-06:00;False|2024-03-08T10:00:15.8680108-06:00;</History>
+    <History>True|2024-03-10T07:33:12.4677424Z;True|2024-03-10T00:46:20.5228389-06:00;True|2024-03-09T19:37:57.3558078-06:00;True|2024-03-08T10:20:00.2191248-06:00;True|2024-03-08T10:19:46.5429970-06:00;True|2024-03-08T10:01:18.8781608-06:00;False|2024-03-08T10:00:15.8680108-06:00;</History>
     <LastFailureDetails />
     <_PublishTargetUrl>C:\Users\AlexCM\Desktop\ComprimidoOxxo</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Api_OxxoPay.dll">
-      <publishTime>03/09/2024 19:42:59</publishTime>
+      <publishTime>03/10/2024 01:33:11</publishTime>
     </File>
     <File Include="bin/Api_OxxoPay.pdb">
-      <publishTime>03/09/2024 19:42:59</publishTime>
+      <publishTime>03/10/2024 01:33:11</publishTime>
     </File>
     <File Include="bin/Conekta.net.dll">
       <publishTime>03/08/2024 02:39:47</publishTime>
@@ -535,7 +535,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/09/2024 16:37:26</publishTime>
     </File>
     <File Include="Views/OxxoPay.aspx">
-      <publishTime>03/08/2024 03:34:54</publishTime>
+      <publishTime>03/10/2024 01:31:16</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>03/08/2024 10:01:18</publishTime>

@@ -30,7 +30,8 @@ namespace Api_OxxoPay.Views
             OxxoPayApi OxxoPay =
                 new OxxoPayApi("Alex Developer", "5591889796", "cordobamolinaalexandher@gmail.com");
 
-            bool estado = await OxxoPay.CreateOrder("PRUEBA ACM", 550);
+            bool estado = 
+                await OxxoPay.CreateOrder("PRUEBA ACM", 100, int.Parse(txtUserID.Text), chbxPrincipal.Checked);
 
             if (estado)
             {
@@ -58,7 +59,7 @@ namespace Api_OxxoPay.Views
     public class OxxoPayApi 
     {
         private readonly string acceptLanguage = "en";
-        private readonly string _key = "Aqui_Va_Tu_Key";
+        private readonly string _key = "api-key";
 
         private Conekta.net.Client.Configuration _config;
 
@@ -86,7 +87,7 @@ namespace Api_OxxoPay.Views
             );
         }
 
-        public async Task<bool> CreateOrder(string title, int unitPrice)
+        public async Task<bool> CreateOrder(string title, int unitPrice, int userID, bool type)
         {
             // Formato estandar Unix
             long expiresAtUnix = ((DateTimeOffset)_expiresAtDateTime).ToUnixTimeSeconds();
@@ -126,8 +127,9 @@ namespace Api_OxxoPay.Views
 
             Dictionary<string, object> metadata = new Dictionary<string, object>
             {
-                {"UserID", 1150},
-                {"PrincipalUser", true}
+                {"UserID", userID},
+                {"PrincipalUser", type},
+                {"Key", "MetaDatoEspecial"}
             };
 
             // Preparar el objeto que representa la orden - - - - - - - - - - - - - - - - - - - - - - - - - - -

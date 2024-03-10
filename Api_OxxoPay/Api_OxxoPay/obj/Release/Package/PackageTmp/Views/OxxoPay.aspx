@@ -14,6 +14,16 @@
 
     <form id="form1" runat="server">
         <div>
+            <asp:Label ID="UserID" runat="server" Text="User ID"></asp:Label>
+            <br />
+            <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
+            <br />
+            <asp:Label ID="PrincipalUser" runat="server" Text="Principa"></asp:Label>
+            <br />
+            <asp:CheckBox ID="chbxPrincipal" runat="server" />
+            <br />
+        </div>
+        <div>
             <asp:Button ID="BtnSend" runat="server" Text="Button" OnClick="BtnSend_Click" />
             <asp:Button ID="btnDelete" runat="server" Text="Button" OnClick="btnDelete_Click" />
         </div>
