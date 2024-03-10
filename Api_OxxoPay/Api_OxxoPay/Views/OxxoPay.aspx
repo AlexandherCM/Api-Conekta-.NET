@@ -15,6 +15,7 @@
     <form id="form1" runat="server">
         <div>
             <asp:Button ID="BtnSend" runat="server" Text="Button" OnClick="BtnSend_Click" />
+            <asp:Button ID="btnDelete" runat="server" Text="Button" OnClick="btnDelete_Click" />
         </div>
     </form>
 
